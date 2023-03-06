@@ -10,9 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DownloadController {
 
+    private final PhotoService photoService;
+
+    public DownloadController(PhotoService photoService) {
+        this.photoService = photoService;
+    }
+
     @GetMapping("/download/{id}")
     public ResponseEntity<byte[]> download(@PathVariable String id) {
-        byte[] data;
+        byte[] data = new byte[0];
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<>(data, headers, HttpStatus.OK);
     }
