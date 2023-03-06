@@ -1,4 +1,4 @@
-package com.josh.explore.photo.clone;
+package com.josh.explore.photo.clone.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotEmpty;
@@ -10,6 +10,7 @@ public class Photo {
     private String fileName;
     @JsonIgnore
     private byte[] data;
+    private String contentType;
     public Photo() {
 
     }
@@ -41,4 +42,11 @@ public class Photo {
         this.id = id;
     }
 
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
 }

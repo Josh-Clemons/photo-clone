@@ -1,5 +1,6 @@
-package com.josh.explore.photo.clone;
+package com.josh.explore.photo.clone.service;
 
+import com.josh.explore.photo.clone.model.Photo;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -27,8 +28,9 @@ public class PhotoService {
         return db.remove(id);
     }
 
-    public Photo put(String fileName, byte[] data) {
+    public Photo put(String fileName, String contentType, byte[] data) {
         Photo photo = new Photo();
+        photo.setContentType(contentType);
         photo.setId(UUID.randomUUID().toString());
         photo.setFileName(fileName);
         photo.setData(data);

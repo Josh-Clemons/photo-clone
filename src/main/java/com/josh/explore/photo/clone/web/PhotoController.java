@@ -1,5 +1,7 @@
-package com.josh.explore.photo.clone;
+package com.josh.explore.photo.clone.web;
 
+import com.josh.explore.photo.clone.service.PhotoService;
+import com.josh.explore.photo.clone.model.Photo;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -7,7 +9,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.util.Collection;
-import java.util.UUID;
 
 @RestController // needed for REST api, let's 'server' know this is an end point
 public class PhotoController {
@@ -44,7 +45,7 @@ public class PhotoController {
 
     @PostMapping("/photo")
     public Photo create(@RequestPart("data") MultipartFile file) throws IOException { // need mark annotation (@) for these rest apis
-        Photo photo = photoService.put(file.getOriginalFilename(), file.getBytes());
+        Photo photo = photoService.put(file.getOriginalFilename(), file.getContentType(), file.getBytes());
         return photo;
     }
 }
