@@ -1,40 +1,40 @@
 package com.josh.explore.photo.clone.service;
 
 import com.josh.explore.photo.clone.model.Photo;
+import com.josh.explore.photo.clone.repository.PhotoRepository;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 //
 @Component //Services are loaded on initialization
 public class PhotoService {
 
-    private Map<String, Photo> db = new HashMap<>() {{
-        put("1", new Photo("1", "hello.jpg"));
-    }};
+    private final PhotoRepository photoRepository;
 
-    public Collection<Photo> get() {
-        return db.values();
+    public PhotoService(PhotoRepository photoRepository) {
+        this.photoRepository = photoRepository;
     }
 
-    public Photo get(String id) {
-        return db.get(id);
+    public Iterable<Photo> get() {
+        return photoRepository.findAll();
     }
 
-    public Photo remove(String id) {
-        return db.remove(id);
+    public Photo get(Integer id) {
+        return photoRepository.findById(id).orElse(null);
+    }
+
+    public void remove(Integer id) {
+        photoRepository.deleteById(id);
     }
 
     public Photo put(String fileName, String contentType, byte[] data) {
         Photo photo = new Photo();
         photo.setContentType(contentType);
-        photo.setId(UUID.randomUUID().toString());
         photo.setFileName(fileName);
         photo.setData(data);
-        db.put(photo.getId(), photo);
+        photo.setId(1);
+        photoRepository.save(photo);
         return photo;
     }
 }
